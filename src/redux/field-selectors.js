@@ -5,3 +5,7 @@ export const getField = (state) => {
 export const getEmptyField = (state) => {
     return state.fieldPage.emptyField;
 };
+
+export const getGameState = (state) => {
+    return state.fieldPage.gameState;
+};

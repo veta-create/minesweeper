@@ -12,7 +12,16 @@ const Field = (props) => {
             {props.field.map((r, iR) => {
                 let rows = [];
                 let row = <div key={"r" + iR} className={styles.row}>{r.map((cell) =>
-                    <Cell key={cell.key} type={cell.type} close={cell.close} />
+                    <Cell openCell={props.openCell}
+                     fillField={props.fillField}
+                     changeGameState={props.changeGameState}
+                     markMinesNearby={props.markMinesNearby}
+                     gameState={props.gameState}
+                     key={cell.key}
+                     type={cell.type}
+                     close={cell.close}
+                     coors={cell.coors}
+                     numberMines={cell.type === 2 ? cell.numberMines : ''} />
                 )}
                 </div>
                 rows.push(row);
