@@ -1,0 +1,26 @@
+.main {
+    width: 500px;
+    height: 75px;
+    margin: 20px;
+    margin-bottom: 0;
+
+    background-color: #c0c0c0;
+    border: 15px ridge #d0cfcf;
+}
+
+.topPanel {
+    display: flex;
+    width: 95%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.minesCounter {
+    width: 90px;
+    height: 55px;
+
+    background-color: black;
+}

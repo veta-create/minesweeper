@@ -1,6 +1,9 @@
+import styles from './styles.module.css';
+
 const Timer = (props) => {
     return (
-        <div>
+        <div className={styles.timer}>
+            
         </div>
     )
 };

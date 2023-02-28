@@ -1,0 +1,14 @@
+.cell {
+    width: 25px;
+    height: 25px;
+}
+
+.open {
+    background-color: #bdbdbd;
+    border: 1px solid #7b7b7b;
+}
+
+.close {
+    background-color: #bdbdbd;
+    border: 2px outset #7b7b7b;
+}

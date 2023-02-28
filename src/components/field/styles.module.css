@@ -1,0 +1,10 @@
+.field {
+    width: 500px;
+    height: 500px;
+    margin: 20px;
+    margin-top: 0;
+
+    background-color: #bdbdbd;
+    border: 15px ridge #d0cfcf;
+    border-top: none;
+}

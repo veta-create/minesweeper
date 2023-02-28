@@ -1,7 +1,9 @@
+import styles from './styles.module.css';
+
 const Smile = () => {
     return(
-        <div>
-            {/* смайлик зависит от состояния игры */}
+        <div className={styles.smile}>
+            
         </div>
     )
 }
