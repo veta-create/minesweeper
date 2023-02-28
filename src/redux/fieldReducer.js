@@ -132,4 +132,7 @@ export const fillField = () => ({
     type: FILL_FIELD
 });
 
+export const markMinesNearby = () => ({
+    type: MARK_MINES_NEARBY
+});
 
