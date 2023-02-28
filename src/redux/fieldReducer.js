@@ -19,8 +19,8 @@ export const fieldReducer = (state = initialState, action) => {
             let newField = [];
             let row = [];
             let key = 1
-            for (let i = 0; i < state.fieldHeight; i++) {
-                for (let j = 0; j < state.fieldWidth; j++) {
+            for (let i = 0; i < state.fieldSize[0]; i++) {
+                for (let j = 0; j < state.fieldSize[1]; j++) {
                     // ключ type: 1 - пустая ячейка; 2 - цифра, обозначающая кол-во ячеек рядом; 3 - мина
                     // ключ coors - координаты ячейки
                     row.push({key: '0' + key, coors: [i, j], type: 1, close: true })
@@ -29,20 +29,20 @@ export const fieldReducer = (state = initialState, action) => {
                 newField.push(row);
                 row = [];
             };
-            return { ...state, emptyField: newField };
+            return { ...state, emptyField: newField, field: newField };
         case FILL_FIELD:
             let minesCoors = [];
             let usedCoors = [];
 
             function getRandomMineCoors() {
-                min = Math.ceil(0);
-                max = Math.floor(state.fieldSize[0] - 1);
+                let min = Math.ceil(0);
+                let max = Math.floor(state.fieldSize[0] - 1);
                 let i = 0;
                 let j = 0;
                 i = Math.floor(Math.random() * (max - min + 1)) + min;
                 j = Math.floor(Math.random() * (max - min + 1)) + min;
                 let coors = `${i} ${j}`;
-                if(usedCoors.includes(coors)) {
+                if(usedCoors.includes(coors) && coors !== action.coors) {
                     getRandomMineCoors();
                 } else {
                     usedCoors.push(coors);
@@ -65,54 +65,54 @@ export const fieldReducer = (state = initialState, action) => {
                     let numberMinesNearby = 0;
                     if(markField[i][j].type === 1) {
                         if(i === 0 && j === 0) {
-                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(i === 0 && j === state.fieldSize[0] - 1) {
-                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(i === state.fieldSize[0] - 1 && j === 0) {
-                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(i === state.fieldSize[0] - 1 && j === state.fieldSize[0] - 1) {
-                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(i === 0) {
-                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(i === state.fieldSize[0] - 1) {
-                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(j === 0) {
-                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else if(j === state.fieldSize[0] - 1) {
-                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         } else {
-                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
-                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            numberMinesNearby = markField[i][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i - 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j - 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
+                            numberMinesNearby = markField[i + 1][j + 1].type === 3 ? numberMinesNearby + 1 : numberMinesNearby;
                         }
                         markField[i][j].type = 2;
                         markField[i][j].numberMines = numberMinesNearby;
@@ -128,8 +128,9 @@ export const createEmptyField = () => ({
     type: CREATE_EMPTY_FIELD
 });
 
-export const fillField = () => ({
-    type: FILL_FIELD
+export const fillField = (coors) => ({
+    type: FILL_FIELD,
+    coors
 });
 
 export const markMinesNearby = () => ({

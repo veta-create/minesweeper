@@ -1,12 +1,12 @@
 import './App.css';
-import Field from './components/field';
+import FieldContainer from './components/field/container';
 import TopPanel from './components/topPanel';
 
 function App() {
   return (
     <div className="App">
       <TopPanel />
-      <Field />
+      <FieldContainer />
     </div>
   );
 }
