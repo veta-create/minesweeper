@@ -16,6 +16,7 @@ const Field = (props) => {
                      fillField={props.fillField}
                      changeGameState={props.changeGameState}
                      markMinesNearby={props.markMinesNearby}
+                     changeTimerActive={props.changeTimerActive}
                      gameState={props.gameState}
                      key={cell.key}
                      type={cell.type}

@@ -10,6 +10,7 @@ const Cell = (props) => {
                     props.fillField(props.coors);
                     props.markMinesNearby();
                     props.changeGameState(2);
+                    props.changeTimerActive(true);
                 };
                 props.openCell(props.coors);
             }} className={cn(styles.cell, styles.close)}></div>
