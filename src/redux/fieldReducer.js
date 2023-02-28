@@ -56,12 +56,18 @@ export const fieldReducer = (state = initialState, action) => {
                 minesCoors.push(coors);
                 fillField[minesCoors[0]][minesCoors[1]].type = 3;
               };
-
               return { ...state, field: fillField, minesCoors: minesCoors };
-
         default:
             return state;
     }
 };
+
+export const createEmptyField = () => ({
+    type: CREATE_EMPTY_FIELD
+});
+
+export const fillField = () => ({
+    type: FILL_FIELD
+});
 
 
