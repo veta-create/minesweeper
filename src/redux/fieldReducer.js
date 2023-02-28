@@ -1,6 +1,7 @@
 import lodash from 'lodash';
 const CREATE_EMPTY_FIELD = 'CREATE_EMPTY_FIELD';
 const FILL_FIELD = 'FILL_FIELD';
+const MARK_MINES_NEARBY = 'MARK_MINES_NEARBY';
 
 let initialState = {
     emptyField: [],
@@ -35,7 +36,7 @@ export const fieldReducer = (state = initialState, action) => {
 
             function getRandomMineCoors() {
                 min = Math.ceil(0);
-                max = Math.floor(15);
+                max = Math.floor(state.fieldSize[0] - 1);
                 let i = 0;
                 let j = 0;
                 i = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -57,6 +58,67 @@ export const fieldReducer = (state = initialState, action) => {
                 fillField[minesCoors[0]][minesCoors[1]].type = 3;
               };
               return { ...state, field: fillField, minesCoors: minesCoors };
+        case MARK_MINES_NEARBY:
+            let markField = lodash.cloneDeep(state).field;
+            for(let i = 0; i < markField.length; i++) {
+                for(let j = 0; j < markField[i].length; j++) {
+                    let numberMinesNearby = 0;
+                    if(markField[i][j].type === 1) {
+                        if(i === 0 && j === 0) {
+                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(i === 0 && j === state.fieldSize[0] - 1) {
+                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(i === state.fieldSize[0] - 1 && j === 0) {
+                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(i === state.fieldSize[0] - 1 && j === state.fieldSize[0] - 1) {
+                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(i === 0) {
+                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(i === state.fieldSize[0] - 1) {
+                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(j === 0) {
+                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                        } else if(j === state.fieldSize[0] - 1) {
+                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                        } else {
+                            markField[i][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i - 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j - 1].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j].type === 3 ? numberMinesNearby++ : '';
+                            markField[i + 1][j + 1].type === 3 ? numberMinesNearby++ : '';
+                        }
+                        markField[i][j].type = 2;
+                        markField[i][j].numberMines = numberMinesNearby;
+                    };
+                }
+            }
         default:
             return state;
     }
