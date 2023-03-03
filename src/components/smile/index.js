@@ -17,6 +17,10 @@ const Smile = (props) => {
                 props.changeSmileState(2);
             }} onMouseUp={() => {
                 props.changeSmileState(1);
+            }} onClick={() => {
+                props.createEmptyField();
+                props.changeGameState(1);
+                props.changeSmileState(1);
             }}>
             </div>
         )
@@ -38,14 +42,22 @@ const Smile = (props) => {
 
     if(props.smileState === 4) {
         return(
-            <div className={cn(styles.smile, styles.steepSmile)}>
+            <div className={cn(styles.smile, styles.steepSmile)} onClick={() => {
+                props.createEmptyField();
+                props.changeGameState(1);
+                props.changeSmileState(1);
+            }}>
             </div>
         )
     };
 
     if(props.smileState === 5) {
         return(
-            <div className={cn(styles.smile, styles.deadSmile)}>
+            <div className={cn(styles.smile, styles.deadSmile)} onClick={() => {
+                props.createEmptyField();
+                props.changeGameState(1);
+                props.changeSmileState(1);
+            }}>
             </div>
         )
     };
