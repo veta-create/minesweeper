@@ -4,25 +4,29 @@ import styles from './styles.module.css';
 const Timer = (props) => {
     const [seconds, setSeconds] = React.useState(0);
 
-    if(props.timerActive) {
+    if (props.gameState > 2) {
+        props.changeTimerActive(false);
+    };
+
+    if (props.timerActive) {
         setTimeout(() => {
             setSeconds(seconds + 1)
         }, 1000)
-    }
+    };
 
-    let timeDisplay = ''
+    let timeDisplay = '';
 
-    if(String(seconds).length === 1) {
+    if (String(seconds).length === 1) {
         timeDisplay = '0' + '0' + seconds;
-    }
+    };
 
-    if(String(seconds).length === 2) {
+    if (String(seconds).length === 2) {
         timeDisplay = '0' + seconds;
-    }
+    };
 
-    if(String(seconds).length === 3) {
+    if (String(seconds).length === 3) {
         timeDisplay = seconds;
-    }
+    };
 
     return (
         <div className={styles.timer}>

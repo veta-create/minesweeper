@@ -13,7 +13,7 @@ const Cell = (props) => {
                     props.openCell(props.cell.coors);
                     props.changeGameState(2);
                     props.changeTimerActive(true);
-                } else {
+                } else if(props.gameState < 3) {
                     props.openCell(props.cell.coors);
                     props.checkDefeat(props.cell.coors);
                 }
