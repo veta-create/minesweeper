@@ -4,6 +4,7 @@ const FILL_FIELD = 'FILL_FIELD';
 const MARK_MINES_NEARBY = 'MARK_MINES_NEARBY';
 const OPEN_CELL = 'OPEN_CELL';
 const CHANGE_GAME_STATE = 'CHANGE_GAME_STATE';
+const CHECK_DEFEAT = 'CHECK_DEFEAT';
 
 let initialState = {
     emptyField: [],
@@ -141,115 +142,17 @@ export const fieldReducer = (state = initialState, action) => {
             }
             return { ...state, field: markField };
         case OPEN_CELL:
-            const openNearby = (r, c) => {
-                if (fieldCopy[r][c].close === false) {
-                    return;
-                }
-
-                fieldCopy[r][c].close = false;
-
-                if(fieldCopy[r][c].type !== 1) {
-                    fieldCopy[r][c].close = false;
-                    return;
-                }
-
-                if (r === 0 && c === 0) {
-                        fieldCopy[r][c + 1].close = fieldCopy[r][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c + 1].close) { openNearby(r, c + 1) };
-                        fieldCopy[r + 1][c].close = fieldCopy[r + 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c].close) { openNearby(r + 1, c) };
-                        fieldCopy[r + 1][c + 1].close = fieldCopy[r + 1][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c + 1].close) { openNearby(r + 1, c + 1) };
-                    } else if (r === 0 && c === state.fieldSize[0] - 1) {
-                        fieldCopy[r][c - 1].close = fieldCopy[r][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c - 1].close) { openNearby(r, c - 1) };
-                        fieldCopy[r + 1][c].close = fieldCopy[r + 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c].close) { openNearby(r + 1, c) };
-                        fieldCopy[r + 1][c - 1].close = fieldCopy[r + 1][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c - 1].close) { openNearby(r + 1, c - 1) };
-                    } else if (r === state.fieldSize[0] - 1 && c === 0) {
-                        fieldCopy[r][c + 1].close = fieldCopy[r][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c + 1].close) { openNearby(r, c + 1) };
-                        fieldCopy[r - 1][c].close = fieldCopy[r - 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c].close) { openNearby(r - 1, c) };
-                        fieldCopy[r - 1][c + 1].close = fieldCopy[r - 1][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c + 1].close) { openNearby(r - 1, c + 1) };
-                    } else if (r === state.fieldSize[0] - 1 && c === state.fieldSize[0] - 1) {
-                        fieldCopy[r][c - 1].close = fieldCopy[r][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c - 1].close) { openNearby(r, c - 1) };
-                        fieldCopy[r - 1][c].close = fieldCopy[r - 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c].close) { openNearby(r - 1, c) };
-                        fieldCopy[r - 1][c - 1].close = fieldCopy[r - 1][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c - 1].close) { openNearby(r - 1, c - 1) };
-                    } else if (r === 0) {
-                        fieldCopy[r][c - 1].close = fieldCopy[r][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c - 1].close) { openNearby(r, c - 1) }
-                        fieldCopy[r][c + 1].close = fieldCopy[r][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c + 1].close) { openNearby(r, c + 1) };
-                        fieldCopy[r + 1][c - 1].close = fieldCopy[r + 1][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c - 1].close) { openNearby(r + 1, c - 1) };
-                        fieldCopy[r + 1][c].close = fieldCopy[r + 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c].close) { openNearby(r + 1, c) };
-                        fieldCopy[r + 1][c + 1].close = fieldCopy[r + 1][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c + 1].close) { openNearby(r + 1, c + 1) };
-                    } else if (r === state.fieldSize[0] - 1) {
-                        fieldCopy[r][c - 1].close = fieldCopy[r][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c - 1].close) { openNearby(r, c - 1) };
-                        fieldCopy[r][c + 1].close = fieldCopy[r][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c + 1].close) { openNearby(r, c + 1) };
-                        fieldCopy[r - 1][c - 1].close = fieldCopy[r - 1][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c - 1].close) { openNearby(r - 1, c - 1) };
-                        fieldCopy[r - 1][c].close = fieldCopy[r - 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c].close) { openNearby(r - 1, c) };
-                        fieldCopy[r - 1][c + 1].close = fieldCopy[r - 1][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c + 1].close) { openNearby(r - 1, c + 1) };
-                    } else if (c === 0) {
-                        fieldCopy[r][c + 1].close = fieldCopy[r][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c + 1].close) { openNearby(r, c + 1) };
-                        fieldCopy[r - 1][c].close = fieldCopy[r - 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c].close) { openNearby(r - 1, c) };
-                        fieldCopy[r - 1][c + 1].close = fieldCopy[r - 1][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c + 1].close) { openNearby(r - 1, c + 1) };
-                        fieldCopy[r + 1][c].close = fieldCopy[r + 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c].close) { openNearby(r + 1, c) };
-                        fieldCopy[r + 1][c + 1].close = fieldCopy[r + 1][c + 1].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c + 1].close) { openNearby(r + 1, c + 1) };
-                    } else if (c === state.fieldSize[0] - 1) {
-                        fieldCopy[r][c - 1].close = fieldCopy[r][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r][c - 1].close) { openNearby(r, c - 1) };
-                        fieldCopy[r - 1][c - 1].close = fieldCopy[r - 1][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c - 1].close) { openNearby(r - 1, c - 1) };
-                        fieldCopy[r - 1][c].close = fieldCopy[r - 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r - 1][c].close) { openNearby(r - 1, c) };
-                        fieldCopy[r + 1][c - 1].close = fieldCopy[r + 1][c - 1].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c - 1].close) { openNearby(r + 1, c - 1) };
-                        fieldCopy[r + 1][c].close = fieldCopy[r + 1][c].type === 3 ? true : false;
-                        if (!fieldCopy[r + 1][c].close) { openNearby(r + 1, c) };
-                    } else {
-                        fieldCopy[r][c + 1].close = fieldCopy[r][c + 1].type === 3 ? true : false;
-                        fieldCopy[r][c - 1].close = fieldCopy[r][c - 1].type === 3 ? true : false;
-                        fieldCopy[r - 1][c - 1].close = fieldCopy[r - 1][c - 1].type === 3 ? true : false;
-                        fieldCopy[r - 1][c].close = fieldCopy[r - 1][c].type === 3 ? true : false;
-                        fieldCopy[r - 1][c + 1].close = fieldCopy[r - 1][c + 1].type === 3 ? true : false;
-                        fieldCopy[r + 1][c - 1].close = fieldCopy[r + 1][c - 1].type === 3 ? true : false;
-                        fieldCopy[r + 1][c].close = fieldCopy[r + 1][c].type === 3 ? true : false;
-                        fieldCopy[r + 1][c + 1].close = fieldCopy[r + 1][c + 1].type === 3 ? true : false;
-                        openNearby(r, c + 1)
-                        openNearby(r, c - 1)
-                        openNearby(r - 1, c - 1)
-                        openNearby(r - 1, c)
-                        openNearby(r - 1, c + 1)
-                        openNearby(r + 1, c - 1)
-                        openNearby(r + 1, c)
-                        openNearby(r + 1, c + 1)
-                    }
-            }
-
-            openNearby(action.coors[0], action.coors[1])
-
+            fieldCopy[action.coors[0]][action.coors[1]].close = false;
             return { ...state, field: fieldCopy}
         case CHANGE_GAME_STATE:
             return { ...state, gameState: action.gameState };
+        case CHECK_DEFEAT:
+            if(fieldCopy[action.coors[0]][action.coors[1]].type === 3) {
+                for(let i = 0; i < stateCopy.minesCoors.length; i++) {
+                    fieldCopy[stateCopy.minesCoors[i][0]][stateCopy.minesCoors[i][1]].close = false;
+                }
+                return { ...state, gameState: 3, field: fieldCopy }
+            }
         default:
             return state;
     }
@@ -276,4 +179,9 @@ export const openCell = (coors) => ({
 export const changeGameState = (gameState) => ({
     type: CHANGE_GAME_STATE,
     gameState
-})
+});
+
+export const checkDefeat = (coors) => ({
+    type: CHECK_DEFEAT,
+    coors
+});

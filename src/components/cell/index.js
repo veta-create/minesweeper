@@ -15,6 +15,7 @@ const Cell = (props) => {
                     props.changeTimerActive(true);
                 } else {
                     props.openCell(props.cell.coors);
+                    props.checkDefeat(props.cell.coors);
                 }
             }}></div>
         )

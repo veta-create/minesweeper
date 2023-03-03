@@ -22,7 +22,8 @@ const Field = (props) => {
                 markMinesNearby={props.markMinesNearby}
                 changeGameState={props.changeGameState}
                 changeTimerActive={props.changeTimerActive}
-                openCell={props.openCell} />)}
+                openCell={props.openCell}
+                checkDefeat={props.checkDefeat} />)}
         </div>
     )
 };

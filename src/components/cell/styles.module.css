@@ -1,6 +1,8 @@
 .cell {
-    width: 5.5%;
-    height: 5.5%;
+    padding: 0;
+    margin: 0;
+    width: 28px;
+    height: 28px;
 
     border-radius: 10%;
 }
