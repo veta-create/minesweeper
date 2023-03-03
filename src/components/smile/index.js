@@ -8,7 +8,7 @@ const Smile = (props) => {
     };
 
     if(props.gameState === 4) {
-        props.changeSmileState(6);
+        props.changeSmileState(4);
     };
 
     if(props.smileState === 1) {

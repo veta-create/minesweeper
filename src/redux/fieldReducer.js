@@ -13,6 +13,7 @@ let initialState = {
     minesCount: 40,
     minesCoors: [],
     fieldSize: [16, 16],
+    openCell: 0,
     // состояние игры: 1 - только началась, 2 - игра идет, 3 - поражение, 4 - победа
     gameState: 1
 };
@@ -145,7 +146,11 @@ export const fieldReducer = (state = initialState, action) => {
             return { ...state, field: markField };
         case OPEN_CELL:
             fieldCopy[action.coors[0]][action.coors[1]].close = false;
-            return { ...state, field: fieldCopy}
+            let newOpenCell = stateCopy.openCell + 1;
+            if(newOpenCell === stateCopy.fieldSize[0] * stateCopy.fieldSize[1] - stateCopy.minesCount) {
+                stateCopy.gameState = 4;
+            };
+            return { ...state, gameState: stateCopy.gameState, field: fieldCopy, openCell: newOpenCell };
         case CHANGE_GAME_STATE:
             return { ...state, gameState: action.gameState };
         case CHECK_DEFEAT:
@@ -165,7 +170,6 @@ export const fieldReducer = (state = initialState, action) => {
                     fieldCopy[action.coors[0]][action.coors[1]].icon = 1;
                 };
             };
-
             return { ...state, field: fieldCopy };
         default:
             return state;
