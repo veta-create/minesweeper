@@ -21,6 +21,7 @@
 .minesCounter {
     width: 90px;
     height: 55px;
+    color: red;
 
     background-color: black;
 }

@@ -1,11 +1,11 @@
 import './App.css';
 import FieldContainer from './components/field/container';
-import TopPanel from './components/topPanel';
+import TopPanelContainer from './components/topPanel/container';
 
 function App() {
   return (
     <div className="App">
-      <TopPanel />
+      <TopPanelContainer />
       <FieldContainer />
     </div>
   );

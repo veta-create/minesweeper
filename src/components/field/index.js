@@ -24,7 +24,9 @@ const Field = (props) => {
                 changeTimerActive={props.changeTimerActive}
                 openCell={props.openCell}
                 checkDefeat={props.checkDefeat}
-                rightClick={props.rightClick} />)}
+                rightClick={props.rightClick}
+                currentMinesCount={props.currentMinesCount}
+                changeCurrentMinesCount={props.changeCurrentMinesCount} />)}
         </div>
     )
 };

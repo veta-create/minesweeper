@@ -9,6 +9,7 @@ const Cell = (props) => {
             <div className={cn(styles.cell, styles.open, styles.flag)} onContextMenu={(event) => {
                 event.preventDefault();
                 props.rightClick(props.cell.coors);
+                props.changeCurrentMinesCount(props.currentMinesCount + 1)
             }}></div>
         )
     };
@@ -40,6 +41,7 @@ const Cell = (props) => {
             }} onContextMenu={(event) => {
                 event.preventDefault();
                 props.rightClick(props.cell.coors);
+                props.changeCurrentMinesCount(props.currentMinesCount - 1);
             }
             }></div>
         )

@@ -1,13 +1,13 @@
 import Smile from '../smile';
 import TimerContainer from '../timer/container';
 import styles from './styles.module.css';
+import cn from 'classnames';
 
 const TopPanel = (props) => {
     return (
         <div className={styles.main}>
             <div className={styles.topPanel}>
-                {/* счетчик мин */}
-                <div className={styles.minesCounter}></div>
+                <div className={styles.minesCounter}>{props.currentMinesCount}</div>
                 <Smile />
                 <TimerContainer />
             </div>
