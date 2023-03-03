@@ -2,7 +2,6 @@ import React from "react";
 import styles from './styles.module.css';
 
 const Timer = (props) => {
-    console.log('timerActive', props.timerActive)
     const [seconds, setSeconds] = React.useState(0);
 
     if(props.timerActive) {
@@ -10,8 +9,6 @@ const Timer = (props) => {
             setSeconds(seconds + 1)
         }, 1000)
     }
-    
-    console.log(seconds)
 
     let timeDisplay = ''
 

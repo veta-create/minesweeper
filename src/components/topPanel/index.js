@@ -9,7 +9,6 @@ const TopPanel = (props) => {
                 {/* счетчик мин */}
                 <div className={styles.minesCounter}></div>
                 <Smile />
-                {/* таймер */}
                 <TimerContainer />
             </div>
         </div>

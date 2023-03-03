@@ -2,32 +2,27 @@ import styles from './styles.module.css';
 import Cell from '../cell';
 
 const Field = (props) => {
-    if(props.field.length === 0) {
+    if (props.field.length === 0) {
         props.createEmptyField();
+    }
+
+    let cells = [];
+
+    for (let i = 0; i < props.field.length; i++) {
+        for (let j = 0; j < props.field[i].length; j++) {
+            cells.push(props.field[i][j])
+        }
     }
 
     return (
         <div className={styles.field}>
-            {/* генерируем поле 16*16 - <div className="ряд">дивы ячеек(cell)</div> */}
-            {props.field.map((r, iR) => {
-                let rows = [];
-                let row = <div key={"r" + iR} className={styles.row}>{r.map((cell) =>
-                    <Cell openCell={props.openCell}
-                     fillField={props.fillField}
-                     changeGameState={props.changeGameState}
-                     markMinesNearby={props.markMinesNearby}
-                     changeTimerActive={props.changeTimerActive}
-                     gameState={props.gameState}
-                     key={cell.key}
-                     type={cell.type}
-                     close={cell.close}
-                     coors={cell.coors}
-                     numberMines={cell.type === 2 ? cell.numberMines : ''} />
-                )}
-                </div>
-                rows.push(row);
-                return rows;
-            })}
+            {cells.map(cell => <Cell cell={cell}
+                gameState={props.gameState}
+                fillField={props.fillField}
+                markMinesNearby={props.markMinesNearby}
+                changeGameState={props.changeGameState}
+                changeTimerActive={props.changeTimerActive}
+                openCell={props.openCell} />)}
         </div>
     )
 };
