@@ -3,21 +3,45 @@ import cn from 'classnames';
 
 const Cell = (props) => {
 
+    //ячейка с флагом
+    if (props.cell.icon === 2) {
+        return (
+            <div className={cn(styles.cell, styles.open, styles.flag)} onContextMenu={(event) => {
+                event.preventDefault();
+                props.rightClick(props.cell.coors);
+            }}></div>
+        )
+    };
 
-    if (props.cell.close) {
+    //ячейка с вопросительным знаком
+    if (props.cell.icon === 3) {
+        return (
+            <div className={cn(styles.cell, styles.open)} onContextMenu={(event) => {
+                event.preventDefault();
+                props.rightClick(props.cell.coors);
+            }
+            }>?</div>
+        )
+    };
+
+    if (props.cell.close && props.cell.icon === 1) {
         return (
             <div className={cn(styles.cell, styles.close)} onClick={() => {
-                if(props.gameState === 1) {
+                if (props.gameState === 1) {
                     props.fillField(props.cell.coors);
                     props.markMinesNearby();
                     props.openCell(props.cell.coors);
                     props.changeGameState(2);
                     props.changeTimerActive(true);
-                } else if(props.gameState < 3) {
+                } else if (props.gameState < 3) {
                     props.openCell(props.cell.coors);
                     props.checkDefeat(props.cell.coors);
                 }
-            }}></div>
+            }} onContextMenu={(event) => {
+                event.preventDefault();
+                props.rightClick(props.cell.coors);
+            }
+            }></div>
         )
     }
 

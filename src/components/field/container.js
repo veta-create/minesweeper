@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Field from "."
 import { getEmptyField, getField, getGameState } from "../../redux/field-selectors"
-import { changeGameState, checkDefeat, createEmptyField, fillField, markMinesNearby, openCell } from "../../redux/fieldReducer";
+import { changeGameState, checkDefeat, createEmptyField, fillField, markMinesNearby, openCell, rightClick } from "../../redux/fieldReducer";
 import { changeTimerActive } from "../../redux/topPanelReducer";
 
 const mapStateToProps = (state) => {
@@ -20,7 +20,8 @@ const FieldContainer = connect(mapStateToProps,
         fillField,
         markMinesNearby,
         changeTimerActive,
-        checkDefeat
+        checkDefeat,
+        rightClick
     })(Field);
 
 export default FieldContainer;

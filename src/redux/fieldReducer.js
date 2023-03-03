@@ -5,6 +5,7 @@ const MARK_MINES_NEARBY = 'MARK_MINES_NEARBY';
 const OPEN_CELL = 'OPEN_CELL';
 const CHANGE_GAME_STATE = 'CHANGE_GAME_STATE';
 const CHECK_DEFEAT = 'CHECK_DEFEAT';
+const RIGHT_CLICK = 'RIGHT_CLICK';
 
 let initialState = {
     emptyField: [],
@@ -29,7 +30,8 @@ export const fieldReducer = (state = initialState, action) => {
                 for (let j = 0; j < state.fieldSize[1]; j++) {
                     // ключ type: 1 - пустая ячейка; 2 - цифра, обозначающая кол-во ячеек рядом; 3 - мина
                     // ключ coors - координаты ячейки
-                    row.push({ key: 'iR' + i + 'iC' + j, coors: [i, j], type: 1, close: true })
+                    // icon: 1 - без иконки, 2 - иконка флажок, 3 - иконка знак вопроса
+                    row.push({ key: 'iR' + i + 'iC' + j, coors: [i, j], type: 1, close: true, icon: 1 })
                     key++;
                 };
                 newField.push(row);
@@ -150,9 +152,21 @@ export const fieldReducer = (state = initialState, action) => {
             if(fieldCopy[action.coors[0]][action.coors[1]].type === 3) {
                 for(let i = 0; i < stateCopy.minesCoors.length; i++) {
                     fieldCopy[stateCopy.minesCoors[i][0]][stateCopy.minesCoors[i][1]].close = false;
-                }
-                return { ...state, gameState: 3, field: fieldCopy }
-            }
+                };
+                return { ...state, gameState: 3, field: fieldCopy };
+            };
+        case RIGHT_CLICK:
+            if(fieldCopy[action.coors[0]][action.coors[1]].close === true) {
+                if(fieldCopy[action.coors[0]][action.coors[1]].icon === 1) {
+                    fieldCopy[action.coors[0]][action.coors[1]].icon = 2;
+                } else if(fieldCopy[action.coors[0]][action.coors[1]].icon === 2) {
+                    fieldCopy[action.coors[0]][action.coors[1]].icon = 3;
+                } else if(fieldCopy[action.coors[0]][action.coors[1]].icon === 3) {
+                    fieldCopy[action.coors[0]][action.coors[1]].icon = 1;
+                };
+            };
+
+            return { ...state, field: fieldCopy };
         default:
             return state;
     }
@@ -183,5 +197,10 @@ export const changeGameState = (gameState) => ({
 
 export const checkDefeat = (coors) => ({
     type: CHECK_DEFEAT,
+    coors
+});
+
+export const rightClick = (coors) => ({
+    type: RIGHT_CLICK,
     coors
 });

@@ -23,7 +23,8 @@ const Field = (props) => {
                 changeGameState={props.changeGameState}
                 changeTimerActive={props.changeTimerActive}
                 openCell={props.openCell}
-                checkDefeat={props.checkDefeat} />)}
+                checkDefeat={props.checkDefeat}
+                rightClick={props.rightClick} />)}
         </div>
     )
 };
