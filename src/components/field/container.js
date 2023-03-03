@@ -3,7 +3,7 @@ import Field from "."
 import { getEmptyField, getField, getGameState } from "../../redux/field-selectors"
 import { changeGameState, checkDefeat, createEmptyField, fillField, markMinesNearby, openCell, rightClick } from "../../redux/fieldReducer";
 import { getCurrentMinesCount } from "../../redux/topPanel-selectors";
-import { changeCurrentMinesCount, changeTimerActive } from "../../redux/topPanelReducer";
+import { changeCurrentMinesCount, changeSmileState, changeTimerActive } from "../../redux/topPanelReducer";
 
 const mapStateToProps = (state) => {
     return {
@@ -24,7 +24,8 @@ const FieldContainer = connect(mapStateToProps,
         changeTimerActive,
         checkDefeat,
         rightClick,
-        changeCurrentMinesCount
+        changeCurrentMinesCount,
+        changeSmileState
     })(Field);
 
 export default FieldContainer;

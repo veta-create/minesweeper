@@ -8,7 +8,7 @@ const TopPanel = (props) => {
         <div className={styles.main}>
             <div className={styles.topPanel}>
                 <div className={styles.minesCounter}>{props.currentMinesCount}</div>
-                <Smile />
+                <Smile smileState={props.smileState} changeSmileState={props.changeSmileState} gameState={props.gameState} />
                 <TimerContainer />
             </div>
         </div>

@@ -1,14 +1,17 @@
 import { connect } from "react-redux";
 import TopPanel from ".";
-import { getCurrentMinesCount } from "../../redux/topPanel-selectors";
-import { changeCurrentMinesCount } from "../../redux/topPanelReducer";
+import { getGameState } from "../../redux/field-selectors";
+import { getCurrentMinesCount, getSmileState } from "../../redux/topPanel-selectors";
+import { changeCurrentMinesCount, changeSmileState } from "../../redux/topPanelReducer";
 
 const mapStateToProps = (state) => {
     return {
-        currentMinesCount: getCurrentMinesCount(state)
+        currentMinesCount: getCurrentMinesCount(state),
+        smileState: getSmileState(state),
+        gameState: getGameState(state)
     };
 };
 
-const TopPanelContainer = connect(mapStateToProps, { changeCurrentMinesCount })(TopPanel);
+const TopPanelContainer = connect(mapStateToProps, { changeCurrentMinesCount, changeSmileState })(TopPanel);
 
 export default TopPanelContainer;

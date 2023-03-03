@@ -43,7 +43,11 @@ const Cell = (props) => {
                 props.rightClick(props.cell.coors);
                 props.changeCurrentMinesCount(props.currentMinesCount - 1);
             }
-            }></div>
+            } onMouseDown={() => {
+                props.changeSmileState(3);
+            }} onMouseUp={() => {
+                props.changeSmileState(1);
+            }}></div>
         )
     }
 

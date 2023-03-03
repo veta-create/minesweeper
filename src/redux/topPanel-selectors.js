@@ -5,3 +5,7 @@ export const getTimerActive = (state) => {
 export const getCurrentMinesCount = (state) => {
     return state.topPanelPage.currentMinesCount;
 };
+
+export const getSmileState = (state) => {
+    return state.topPanelPage.smileState;
+};

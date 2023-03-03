@@ -11,6 +11,6 @@ const mapStateToProps = (state) => {
     }
 }
 
-const TimerContainer = connect(mapStateToProps, { changeTimerActive})(Timer);
+const TimerContainer = connect(mapStateToProps, { changeTimerActive })(Timer);
 
 export default TimerContainer;

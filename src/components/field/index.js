@@ -26,7 +26,8 @@ const Field = (props) => {
                 checkDefeat={props.checkDefeat}
                 rightClick={props.rightClick}
                 currentMinesCount={props.currentMinesCount}
-                changeCurrentMinesCount={props.changeCurrentMinesCount} />)}
+                changeCurrentMinesCount={props.changeCurrentMinesCount}
+                changeSmileState={props.changeSmileState} />)}
         </div>
     )
 };
