@@ -1,22 +1,74 @@
 .cell {
-    padding: 0;
-    margin: 0;
-    width: 28px;
-    height: 28px;
-
-    border-radius: 10%;
-}
-
-.open {
-    background-color: #ebe7e7;
-    border: 2px solid #b7b5b5;
-}
-
-.close {
-    background-color: #bdbdbd;
-    border: 2px outset #7b7b7b;
-}
-
-.flag {
-    background-color: #d21e1e;
-}
+    width: 16px;
+    height: 16px;
+    background-image: url('../../assets/sprite.png');
+    cursor: pointer;
+  }
+  
+  .hidden {
+    background-position: 0 33px;
+  }
+  
+  .flagged {
+    background-position: -32px 33px;
+  }
+  
+  .unknown {
+    background-position: -51px 33px;
+  }
+  
+  .unknown_empty {
+    background-position: -68px 33px;
+  }
+  
+  .mine_explosion {
+    background-position: 37px 33px;
+  }
+  
+  .mine_demined {
+    background-position: 20px 33px;
+  }
+  
+  .empty {
+    background-position: -16px 33px;
+  }
+  
+  .mine {
+    background-position: 54px 33px;
+  }
+  
+  .demined {
+    background-position: 20px 33px;
+  }
+  
+  .has_neighor_1 {
+    background-position: 0px 16px;
+  }
+  
+  .has_neighor_2 {
+    background-position: -16px 16px;
+  }
+  
+  .has_neighor_3 {
+    background-position: -32px 16px;
+  }
+  
+  .has_neighor_4 {
+    background-position: -48px 16px;
+  }
+  
+  .has_neighor_5 {
+    background-position: -67px 16px;
+  }
+  
+  .has_neighor_6 {
+    background-position: -80px 16px;
+  }
+  
+  .has_neighor_7 {
+    background-position: -96px 16px;
+  }
+  
+  .has_neighor_8 {
+    background-position: -112px 16px;
+  }

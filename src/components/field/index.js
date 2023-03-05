@@ -1,35 +1,35 @@
+import { Cell } from '../cell';
 import styles from './styles.module.css';
-import Cell from '../cell';
 
-const Field = (props) => {
-    if (props.field.length === 0) {
-        props.createEmptyField();
-    }
-
-    let cells = [];
-
-    for (let i = 0; i < props.field.length; i++) {
-        for (let j = 0; j < props.field[i].length; j++) {
-            cells.push(props.field[i][j])
-        }
-    }
-
-    return (
-        <div className={styles.field}>
-            {cells.map(cell => <Cell cell={cell}
-                gameState={props.gameState}
-                fillField={props.fillField}
-                markMinesNearby={props.markMinesNearby}
-                changeGameState={props.changeGameState}
-                changeTimerActive={props.changeTimerActive}
-                openCell={props.openCell}
-                checkDefeat={props.checkDefeat}
-                rightClick={props.rightClick}
-                currentMinesCount={props.currentMinesCount}
-                changeCurrentMinesCount={props.changeCurrentMinesCount}
-                changeSmileState={props.changeSmileState} />)}
-        </div>
-    )
+export const Field = ({
+  field,
+  gameState,
+  initGame,
+  markMinesNearby,
+  changeTimerActive,
+  openCell,
+  demineClick,
+  changeSmileState,
+  currentMinesCount,
+}) => {
+  return (
+    <div className={styles.field}>
+      {field.map((row, rowIndex) => {
+        return row.map((col, colIndex) => (
+          <Cell
+            key={`${rowIndex}${colIndex}`}
+            cell={field[rowIndex][colIndex]}
+            gameState={gameState}
+            initGame={initGame}
+            currentMinesCount={currentMinesCount}
+            markMinesNearby={markMinesNearby}
+            changeTimerActive={changeTimerActive}
+            openCell={openCell}
+            demineClick={demineClick}
+            changeSmileState={changeSmileState}
+          />
+        ));
+      })}
+    </div>
+  );
 };
-
-export default Field;
