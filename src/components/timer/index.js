@@ -1,38 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import { Number } from '../number';
 import styles from './styles.module.css';
 
-const Timer = (props) => {
-    const [seconds, setSeconds] = React.useState(0);
+let intervalId;
 
-    if (props.gameState > 2) {
-        props.changeTimerActive(false);
+export const Timer = ({ isTimerActive }) => {
+  const [seconds, setSeconds] = useState(0);
+
+  useEffect(() => {
+    if (isTimerActive) {
+      intervalId = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    } else {
+      setSeconds(0);
+      clearInterval(intervalId);
+    }
+
+    return () => {
+      clearInterval(intervalId);
     };
+  }, [isTimerActive]);
 
-    if (props.timerActive) {
-        setTimeout(() => {
-            setSeconds(seconds + 1)
-        }, 1000)
-    };
+  const timeDisplayValue = String(seconds).padStart(3, '0');
+  const timeDisplay = timeDisplayValue.split('').map((digit, index) => <Number key={index} digit={digit} />);
 
-    let timeDisplay = '';
-
-    if (String(seconds).length === 1) {
-        timeDisplay = '0' + '0' + seconds;
-    };
-
-    if (String(seconds).length === 2) {
-        timeDisplay = '0' + seconds;
-    };
-
-    if (String(seconds).length === 3) {
-        timeDisplay = seconds;
-    };
-
-    return (
-        <div className={styles.timer}>
-            {timeDisplay}
-        </div>
-    )
+  return <div className={styles.timer}>{timeDisplay}</div>;
 };
-
-export default Timer;

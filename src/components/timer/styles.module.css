@@ -1,8 +1,5 @@
 .timer  {
-    width: 90px;
-    height: 55px;
-    font-size: 32px;
-    color: red;
-
-    background-color: black;
-}
+    display: flex;
+    background: black;
+    justify-self: flex-end;
+  }

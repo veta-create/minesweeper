@@ -1,27 +1,15 @@
-.main {
-    width: 500px;
-    height: 75px;
-    margin: 20px;
-    margin-bottom: 0;
-
-    background-color: #c0c0c0;
-    border: 15px ridge #d0cfcf;
-}
-
-.topPanel {
-    display: flex;
-    width: 95%;
-    height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    align-items: center;
+.panel {
+    display: grid;
+    grid-template-columns: repeat(3, 70px);
     justify-content: space-between;
-}
-
-.minesCounter {
-    width: 90px;
-    height: 55px;
-    color: red;
-
-    background-color: black;
-}
+    align-items: center;
+    background-color: #c0c0c0;
+    border-bottom: 6px ridge #d0cfcf;
+    padding: 4px;
+  }
+  
+  .mines {
+    display: flex;
+    align-self: flex-start;
+  }
+  

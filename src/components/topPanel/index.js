@@ -1,20 +1,20 @@
-import Smile from '../smile';
-import TimerContainer from '../timer/container';
+import { Number } from '../number';
+import { Smile } from '../smile';
+import { Timer } from '../timer';
 import styles from './styles.module.css';
-import cn from 'classnames';
 
-export const TopPanel = (props) => {
+export const TopPanel = ({ currentMinesCount, smileState, changeSmileState, timerActive, gameState, resetGame }) => {
+    const minesCount = currentMinesCount
+        .toString()
+        .padStart(2, '0')
+        .split('')
+        .map((digit, index) => <Number key={index} digit={digit} />);
+
     return (
-        <div className={styles.main}>
-            <div className={styles.topPanel}>
-                <div className={styles.minesCounter}>{props.currentMinesCount}</div>
-                <Smile smileState={props.smileState}
-                 changeSmileState={props.changeSmileState}
-                 gameState={props.gameState}
-                 createEmptyField={props.createEmptyField}
-                 changeGameState={props.changeGameState} />
-                <TimerContainer />
-            </div>
+        <div className={styles.panel}>
+            <div className={styles.mines}>{minesCount}</div>
+            <Smile gameState={gameState} smileState={smileState} changeSmileState={changeSmileState} resetGame={resetGame} />
+            <Timer isTimerActive={timerActive} />
         </div>
     )
 };
