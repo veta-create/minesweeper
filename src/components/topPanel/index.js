@@ -3,7 +3,7 @@ import TimerContainer from '../timer/container';
 import styles from './styles.module.css';
 import cn from 'classnames';
 
-const TopPanel = (props) => {
+export const TopPanel = (props) => {
     return (
         <div className={styles.main}>
             <div className={styles.topPanel}>
@@ -18,5 +18,3 @@ const TopPanel = (props) => {
         </div>
     )
 };
-
-export default TopPanel;
