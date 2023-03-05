@@ -1,0 +1,6 @@
+export const INIT_GAME = 'INIT_GAME';
+export const RESET_GAME = 'RESET_GAME';
+export const OPEN_CELL = 'OPEN_CELL';
+export const DEMINE_CLICK = 'DEMINE_CLICK';
+export const CHANGE_TIMER_ACTIVE = 'CHANGE_TIMER_ACTIVE';
+export const CHANGE_SMILE_STATE = 'CHANGE_SMILE_STATE';
