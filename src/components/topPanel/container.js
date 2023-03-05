@@ -13,11 +13,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const TopPanelContainer = connect(mapStateToProps, {
+export const TopPanelContainer = connect(mapStateToProps, {
     changeCurrentMinesCount,
     changeSmileState,
     createEmptyField,
     changeGameState
 })(TopPanel);
-
-export default TopPanelContainer;

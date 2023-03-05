@@ -14,7 +14,7 @@ const mapStateToProps = (state) => {
     }
 }
 
-const FieldContainer = connect(mapStateToProps,
+export const FieldContainer = connect(mapStateToProps,
     {
         createEmptyField,
         openCell,
@@ -27,5 +27,3 @@ const FieldContainer = connect(mapStateToProps,
         changeCurrentMinesCount,
         changeSmileState
     })(Field);
-
-export default FieldContainer;
