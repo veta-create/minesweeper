@@ -76,7 +76,7 @@ export const gameReducer = (state = initialState, action) => {
       return {
         ...state,
         field: fieldWithMinesAndNeihbors,
-        timerActive: true,
+        timerActive: false,
         gameState: GAME_STATE['IDLE'],
         minesCoords: minesCoords,
         currentMinesCount: MINE_COUNT,
