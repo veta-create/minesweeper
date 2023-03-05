@@ -1,15 +1,14 @@
 .panel {
-    display: grid;
-    grid-template-columns: repeat(3, 70px);
-    justify-content: space-between;
-    align-items: center;
-    background-color: #c0c0c0;
-    border-bottom: 6px ridge #d0cfcf;
-    padding: 4px;
-  }
-  
-  .mines {
-    display: flex;
-    align-self: flex-start;
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(3, 70px);
+  justify-content: space-between;
+  align-items: center;
+  background-color: #c0c0c0;
+  border-bottom: 6px ridge #d0cfcf;
+  padding: 4px;
+}
+
+.mines {
+  display: flex;
+  align-self: flex-start;
+}

@@ -1,14 +1,8 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { fieldReducer } from './fieldReducer';
-import { topPanelReducer } from './topPanelReducer';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { gameReducer } from './reducers/game';
 
 const reducers = combineReducers({
-    fieldPage: fieldReducer,
-    topPanelPage: topPanelReducer
+  game: gameReducer,
 });
 
-const store = configureStore({reducer: reducers});
-
-window.store = store;
-
-export default store;
+export const store = configureStore({ reducer: reducers });

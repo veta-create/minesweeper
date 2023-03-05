@@ -1,0 +1,6 @@
+.game {
+    position: relative;
+    max-width: fit-content;
+    z-index: 2;
+    border: 6px ridge #d0cfcf;
+}

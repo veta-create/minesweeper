@@ -1,46 +1,46 @@
 /* Общие стили, например спрайты с циферками */
 .number {
-    background-image: url('../../assets/sprite.png');
-    width: 13px;
-    height: 23px;
-  }
-  
-  .zero {
-    background-position: 13px 0px;
-  }
-  
-  .one {
-    background-position: 0px 0px;
-  }
-  
-  .two {
-    background-position: 125px 0px;
-  }
-  
-  .three {
-    background-position: 111px 0px;
-  }
-  
-  .four {
-    background-position: 97px 0;
-  }
-  
-  .five {
-    background-position: 82px 0;
-  }
-  
-  .six {
-    background-position: 69px 0;
-  }
-  
-  .seven {
-    background-position: 54px 0;
-  }
-  
-  .eight {
-    background-position: 40px 0;
-  }
-  
-  .nine {
-    background-position: 26px 0;
-  }
+  background-image: url('../../assets/sprite.png');
+  width: 13px;
+  height: 23px;
+}
+
+.zero {
+  background-position: 13px 0px;
+}
+
+.one {
+  background-position: 0px 0px;
+}
+
+.two {
+  background-position: 125px 0px;
+}
+
+.three {
+  background-position: 111px 0px;
+}
+
+.four {
+  background-position: 97px 0;
+}
+
+.five {
+  background-position: 82px 0;
+}
+
+.six {
+  background-position: 69px 0;
+}
+
+.seven {
+  background-position: 54px 0;
+}
+
+.eight {
+  background-position: 40px 0;
+}
+
+.nine {
+  background-position: 26px 0;
+}

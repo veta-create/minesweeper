@@ -1,27 +1,27 @@
 .smile {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    background-image: url(../../assets/sprite.png);
-    justify-self: center;
-  }
-  
-  .smile_default {
-    background-position: 0px -25px;
-  }
-  
-  .smile_pressed {
-    background-position: -28px -25px;
-  }
-  
-  .scared {
-    background-position: -55px -25px;
-  }
-  
-  .win {
-    background-position: -82px -25px;
-  }
-  
-  .dead {
-    background-position: -110px -25px;
-  }
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-image: url(../../assets/sprite.png);
+  justify-self: center;
+}
+
+.smile_default {
+  background-position: 0px -25px;
+}
+
+.smile_pressed {
+  background-position: -28px -25px;
+}
+
+.scared {
+  background-position: -55px -25px;
+}
+
+.win {
+  background-position: -82px -25px;
+}
+
+.dead {
+  background-position: -110px -25px;
+}
