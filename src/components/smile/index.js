@@ -1,66 +1,50 @@
 import cn from 'classnames';
+import { useState } from 'react';
+import { getObjectKeyByValue, GAME_STATE, SMILE_STATE } from '../../redux/reducers';
 import styles from './styles.module.css';
 
-const Smile = (props) => {
+export const Smile = ({ gameState, smileState, resetGame, changeSmileState }) => {
+  const [isPressed, setIsPressed] = useState(false);
 
-    if(props.gameState === 3) {
-        props.changeSmileState(5);
-    };
+  const mapSpriteToCellType = {
+    SMILE: styles.smile_default,
+    PRESSED: styles.smile_pressed,
+    SCARED: styles.scared,
+    WIN: styles.win,
+    DEAD: styles.dead,
+  };
 
-    if(props.gameState === 4) {
-        props.changeSmileState(4);
-    };
+  const getSmileStyle = (gameState, smileState, isPressed) => {
+    if (isPressed) {
+      return cn(styles.smile, mapSpriteToCellType['PRESSED']);
+    }
 
-    if(props.smileState === 1) {
-        return(
-            <div className={cn(styles.smile, styles.funnySmile)} onMouseDown={() => {
-                props.changeSmileState(2);
-            }} onMouseUp={() => {
-                props.changeSmileState(1);
-            }} onClick={() => {
-                props.createEmptyField();
-                props.changeGameState(1);
-                props.changeSmileState(1);
-            }}>
-            </div>
-        )
-    };
+    if (gameState === GAME_STATE['LOST']) {
+      return cn(styles.smile, mapSpriteToCellType['DEAD']);
+    }
 
-    if(props.smileState === 2) {
-        return(
-            <div className={cn(styles.smile, styles.funnySmileClamped)}>
-            </div>
-        )
-    };
+    if (gameState === GAME_STATE['WIN']) {
+      return cn(styles.smile, mapSpriteToCellType['WIN']);
+    }
 
-    if(props.smileState === 3) {
-        return(
-            <div className={cn(styles.smile, styles.surprisedSmile)}>
-            </div>
-        )
-    };
+    return cn(styles.smile, mapSpriteToCellType[getObjectKeyByValue(SMILE_STATE, smileState)]);
+  };
 
-    if(props.smileState === 4) {
-        return(
-            <div className={cn(styles.smile, styles.steepSmile)} onClick={() => {
-                props.createEmptyField();
-                props.changeGameState(1);
-                props.changeSmileState(1);
-            }}>
-            </div>
-        )
-    };
+  const handleMouseDown = () => {
+    setIsPressed(true);
+  };
 
-    if(props.smileState === 5) {
-        return(
-            <div className={cn(styles.smile, styles.deadSmile)} onClick={() => {
-                props.createEmptyField();
-                props.changeGameState(1);
-                props.changeSmileState(1);
-            }}>
-            </div>
-        )
-    };
-}
+  const handleMouseUp = () => {
+    resetGame();
+    changeSmileState(SMILE_STATE['SMILE']);
+    setIsPressed(false);
+  };
 
-export default Smile;
+  return (
+    <div
+      className={getSmileStyle(gameState, smileState, isPressed)}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+    />
+  );
+};
